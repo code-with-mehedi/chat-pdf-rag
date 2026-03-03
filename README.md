@@ -23,7 +23,7 @@ A full-stack application that allows users to upload PDF documents and chat with
 - [OpenAI](https://openai.com/) - Embeddings & Chat completions
 - [Qdrant](https://qdrant.tech/) - Vector database
 - [BullMQ](https://bullmq.io/) - Job queue
-- [Redis](https://redis.io/) - Queue backend
+- [Valkey](https://valkey.io/) - Queue backend
 
 ## Architecture
 
@@ -36,7 +36,7 @@ A full-stack application that allows users to upload PDF documents and chat with
                     ┌──────┴──────┐
                     │             │
               ┌─────▼─────┐ ┌─────▼─────┐
-              │   Redis   │ │   Qdrant  │
+              │  Valkey   │ │   Qdrant  │
               │  (Queue)  │ │  (Vector) │
               └───────────┘ └───────────┘
 ```
@@ -45,7 +45,7 @@ A full-stack application that allows users to upload PDF documents and chat with
 
 - Node.js 18+
 - pnpm
-- Docker (for Redis & Qdrant)
+- Docker (for Valkey & Qdrant)
 - OpenAI API key
 
 ## Installation
@@ -57,11 +57,15 @@ git clone https://github.com/yourusername/chat-pdf-rag.git
 cd chat-pdf-rag
 ```
 
-### 2. Start Redis & Qdrant
+### 2. Start Valkey & Qdrant
 
 ```bash
-# Redis
-docker run -d -p 6379:6379 redis
+# Using docker-compose (recommended)
+docker-compose up -d
+
+# Or manually:
+# Valkey
+docker run -d -p 6379:6379 valkey/valkey
 
 # Qdrant
 docker run -d -p 6333:6333 qdrant/qdrant
